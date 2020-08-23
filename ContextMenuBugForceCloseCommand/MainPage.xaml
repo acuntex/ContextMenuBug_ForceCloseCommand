@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:context="clr-namespace:ContextMenu.Views;assembly=ContextMenu"
+    x:Class="ContextMenuBugForceCloseCommand.MainPage"
+    x:Name="Page"
+    ios:Page.UseSafeArea="true">
+    <StackLayout Padding="0">
+        <context:SideContextMenuView IsAutoCloseEnabled="true" ForceCloseCommand="{Binding ForceCloseCommand}">
+            <context:SideContextMenuView.View>
+                <StackLayout Padding="0" HeightRequest="40" WidthRequest="{Binding Source={x:Reference Page}, Path=Width}" BackgroundColor="Blue">
+                    <Label Text="Swipe this left"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </context:SideContextMenuView.View>
+            <context:SideContextMenuView.ContextTemplate>
+                <DataTemplate>
+                    <StackLayout BackgroundColor="Red"
+                                 Padding="50,0,50,0">
+                        <Label Text="Now click here"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.TouchCommand, Source={x:Reference Page}}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </context:SideContextMenuView.ContextTemplate>  
+        </context:SideContextMenuView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+            <CheckBox IsChecked="{Binding AnimateCose}" />
+            <Label Text="Animate ForceClosing" VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
